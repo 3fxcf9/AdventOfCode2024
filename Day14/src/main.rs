@@ -42,6 +42,7 @@ fn print_map(robots: &Vec<Robot>, w: u8, h: u8) {
     {
         grid[*y as usize][*x as usize] += 1;
     }
+
     for line in grid {
         for col in line {
             print!(
@@ -135,8 +136,30 @@ fn main() {
     loop {
         robots_2.iter_mut().for_each(|r| r.step(w, h));
         iter_count += 1;
-        sleep(Duration::from_millis(16));
+        if is_unlikely(&robots_2, w, h) {
+            continue;
+        }
+        sleep(Duration::from_millis(100));
         println!("Iteration {}", iter_count);
         print_map(&robots_2, w, h);
     }
+}
+
+fn is_unlikely(robots: &Vec<Robot>, w: u8, h: u8) -> bool {
+    let mut grid = vec![vec![0; w as usize]; h as usize];
+    for Robot {
+        position: Coordinates { x, y },
+        ..
+    } in robots
+    {
+        grid[*y as usize][*x as usize] += 1;
+    }
+
+    let mut count_per_line: Vec<u8> = vec![];
+    for line in grid {
+        count_per_line.push(line.iter().sum());
+    }
+    let min = count_per_line.iter().min().unwrap();
+    let max = count_per_line.iter().max().unwrap();
+    (max - min) < 15
 }
