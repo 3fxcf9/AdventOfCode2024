@@ -58,7 +58,7 @@ pub fn main() {
         );
     }
 
-    let (h, w) = (map.len() as i16, map[0].len() as i16);
+    let h = map.len() as i16;
 
     let mut robot = Robot {
         x: initial_x.unwrap() as i16,

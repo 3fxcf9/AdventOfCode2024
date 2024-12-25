@@ -21,7 +21,6 @@ impl Orientation {
             Orientation::Down => (0, 1),
             Orientation::Left => (-1, 0),
             Orientation::Right => (1, 0),
-            _ => todo!(),
         }
     }
 }
@@ -57,7 +56,6 @@ fn main() {
         })
         .collect();
 
-    let (h, w) = (map.len() as i16, map[0].len() as i16);
     let initial_x = initial_x.unwrap();
     let initial_y = initial_y.unwrap();
 

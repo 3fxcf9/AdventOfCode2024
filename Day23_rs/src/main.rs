@@ -95,7 +95,7 @@ fn main() {
 
                     if others
                         .iter()
-                        .any(|o| !computers.get(*c).unwrap().contains(o.clone()))
+                        .any(|o| !computers.get(*c).unwrap().contains(*o))
                     {
                         continue 'comb;
                     }
