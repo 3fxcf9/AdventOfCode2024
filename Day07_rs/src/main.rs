@@ -34,7 +34,6 @@ fn main() {
     // Part 2
     for line in incorrect_lines {
         if is_true_2(line.0, &line.1) {
-            dbg!("CORRECT", &line);
             correct_sum += line.0;
         }
     }
@@ -56,12 +55,13 @@ fn is_true_2(n: f64, l: &[f64]) -> bool {
     if l.len() == 1 {
         return n == l[0];
     }
-    
+
     let state = is_true_2(n - l.last().unwrap(), &l[..l.len() - 1])
         || is_true_2(n / l.last().unwrap(), &l[..l.len() - 1]);
-    
+
     // Concat if possible
-    if n.abs() != f64::INFINITY && n.fract() == 0.0
+    if n.abs() != f64::INFINITY
+        && n.fract() == 0.0
         && (n as u64) % (10u64.pow(l.last().unwrap().max(1.0).log10().floor() as u32 + 1)) as u64
             == *l.last().unwrap() as u64
     {
@@ -72,6 +72,6 @@ fn is_true_2(n: f64, l: &[f64]) -> bool {
                 &l[..l.len() - 1],
             );
     }
-    
+
     return state;
 }
